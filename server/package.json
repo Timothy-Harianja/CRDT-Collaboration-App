@@ -7,6 +7,7 @@
   "author": "Timothy Hada Harianja",
   "license": "MIT",
   "dependencies": {
+    "automerge": "^1.0.1-preview.7",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",

@@ -1,0 +1,76 @@
+import React, { useState, useEffect } from "react";
+
+import ReactQuill, { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import QuillCursors from "quill-cursors";
+import * as Y from "yjs";
+import { QuillBinding } from "y-quill";
+
+import "./App.css";
+// import io from "socket.io-client";
+
+const ydoc = new Y.Doc();
+const ytext = ydoc.getText("quill");
+
+const reactQuill = new ReactQuill({
+  id: "editor",
+  modules: {
+    // cursors: true,
+    toolbar: [
+      // adding some basic Quill content features
+      [{ header: [1, 2, false] }],
+      ["bold", "italic", "underline"],
+      ["image", "code-block"],
+    ],
+    history: {
+      // Local undo shouldn't undo changes
+      // from remote users
+      userOnly: true,
+    },
+  },
+  placeholder: "Start collaborating...",
+  theme: "snow", // 'bubble' is also great
+});
+
+const modules = {
+  // cursors: true,
+  toolbar: [
+    // adding some basic Quill content features
+    [{ header: [1, 2, false] }],
+    ["bold", "italic", "underline"],
+    ["image", "code-block"],
+  ],
+  history: {
+    // Local undo shouldn't undo changes
+    // from remote users
+    userOnly: true,
+  },
+};
+
+// const ENDPOINT = "http://127.0.0.1:4000";
+// console.log(reactQuill.getEditor().getModule('toolbar'))
+// const binding2 = new QuillBinding(ytext, reactQuill.getEditor())
+
+function App() {
+  useEffect(() => {
+    Quill.register(QuillCursors);
+    // console.log("connecting to server")
+    // io(ENDPOINT);
+  }, []);
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <ReactQuill
+          onChange={(value) => console.log(value)}
+          id="editor"
+          theme="snow"
+          modules={modules}
+          placeholder="Start collaborating..."
+        />
+      </header>
+    </div>
+  );
+}
+
+export default App;
